@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.env
+venv/
+.venv/
+
+# Node
+node_modules/
+.next/
+dist/
+.env.local
+.env.development.local
+
+# ML Models
+*.pkl
+*.h5
+*.pt
+*.bin
+
+# Audio
+*.wav
+*.mp3
+*.webm
+
+# DB
+*.db
+*.sqlite3
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

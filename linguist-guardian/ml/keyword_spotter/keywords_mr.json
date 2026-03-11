@@ -1,0 +1,99 @@
+{
+    "keywords": {
+        "emergency": {
+            "terms": [
+                "कार्ड हरवले",
+                "कार्ड चोरी",
+                "खाते गोठवा",
+                "ब्लॉक करा",
+                "तातडीचे"
+            ],
+            "urgency": "critical",
+            "actions": [
+                "CARD_BLOCK",
+                "ACCOUNT_FREEZE"
+            ]
+        },
+        "account": {
+            "terms": [
+                "खाते",
+                "बचत खाते",
+                "चालू खाते",
+                "शिल्लक",
+                "उतारा"
+            ],
+            "urgency": "low",
+            "actions": [
+                "BALANCE_ENQUIRY"
+            ]
+        },
+        "loan": {
+            "terms": [
+                "कर्ज",
+                "गृहकर्ज",
+                "वैयक्तिक कर्ज",
+                "ईएमआई",
+                "व्याज",
+                "मंजुरी"
+            ],
+            "urgency": "medium",
+            "actions": [
+                "LOAN_QUERY"
+            ]
+        },
+        "kyc": {
+            "terms": [
+                "आधार",
+                "पॅन",
+                "केवायसी",
+                "कागदपत्रे",
+                "अपडेट"
+            ],
+            "urgency": "low",
+            "actions": [
+                "KYC_UPDATE"
+            ]
+        },
+        "complaint": {
+            "terms": [
+                "तक्रार",
+                "समस्या",
+                "अडचण",
+                "चुकीचे",
+                "व्यवस्थापक"
+            ],
+            "urgency": "high",
+            "actions": [
+                "COMPLAINT_REGISTER"
+            ]
+        },
+        "fd": {
+            "terms": [
+                "मुदत ठेव",
+                "एफडी",
+                "ठेव",
+                "परिपक्वता",
+                "व्याजदर"
+            ],
+            "urgency": "low",
+            "actions": [
+                "FD_OPEN",
+                "FD_CLOSE"
+            ]
+        },
+        "distress": {
+            "terms": [
+                "काळजी",
+                "भीती",
+                "घाबरलो",
+                "चिंता",
+                "मदत करा",
+                "कृपया"
+            ],
+            "urgency": "high",
+            "actions": [
+                "ESCALATE"
+            ]
+        }
+    }
+}

@@ -1,0 +1,46 @@
+{
+  "dialects": {
+    "mr_pune": {
+      "name": "Puneri Marathi",
+      "region": "Pune",
+      "markers": ["काय", "बरं", "ना", "जरा", "बघ", "चला", "काय रे"],
+      "common_phrases": ["काय मग", "बरं बरं", "हं बरोबर"]
+    },
+    "mr_mumbai": {
+      "name": "Mumbai Marathi",
+      "region": "Mumbai",
+      "markers": ["बोल ना", "एक काम कर", "अरे", "यार"],
+      "common_phrases": ["अरे भाई", "बस बस"]
+    },
+    "mr_vidarbha": {
+      "name": "Vidarbha Marathi",
+      "region": "Vidarbha/Nagpur",
+      "markers": ["बा", "ले", "काय बा"],
+      "common_phrases": ["ये बा", "काय बा करतोय"]
+    },
+    "hi_standard": {
+      "name": "Standard Hindi",
+      "region": "NCR/Delhi",
+      "markers": ["है", "हूँ", "करता", "बोलो", "देखो"],
+      "common_phrases": ["सुनिए", "बताइए"]
+    },
+    "hi_bhojpuri": {
+      "name": "Bhojpuri Hindi",
+      "region": "Bihar/UP East",
+      "markers": ["का", "बा", "रहल", "हऊ", "बतावा"],
+      "common_phrases": ["का बा", "ठीक बा"]
+    },
+    "ta_standard": {
+      "name": "Standard Tamil",
+      "region": "Chennai",
+      "markers": ["இருக்கிறது", "சொல்லுங்கள்", "பண்ணுங்கள்"],
+      "common_phrases": ["வணக்கம்", "நன்றி"]
+    },
+    "bn_standard": {
+      "name": "Standard Bengali",
+      "region": "Kolkata",
+      "markers": ["করছি", "বলুন", "দেখুন"],
+      "common_phrases": ["আচ্ছা", "বলুন বলুন"]
+    }
+  }
+}

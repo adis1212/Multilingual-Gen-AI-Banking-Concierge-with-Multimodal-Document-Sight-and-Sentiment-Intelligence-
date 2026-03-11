@@ -1,0 +1,174 @@
+{
+    "intents": [
+        {
+            "label": "lost_card",
+            "display": "Lost/Stolen Card",
+            "code": "CARD_BLOCK"
+        },
+        {
+            "label": "card_reissue",
+            "display": "Card Re-issue",
+            "code": "CARD_REISSUE"
+        },
+        {
+            "label": "balance_enquiry",
+            "display": "Balance Enquiry",
+            "code": "BALANCE_ENQUIRY"
+        },
+        {
+            "label": "loan_query",
+            "display": "Loan Query",
+            "code": "LOAN_QUERY"
+        },
+        {
+            "label": "kyc_update",
+            "display": "KYC Update",
+            "code": "KYC_UPDATE"
+        },
+        {
+            "label": "account_opening",
+            "display": "Account Opening",
+            "code": "ACCOUNT_OPEN"
+        },
+        {
+            "label": "account_freeze",
+            "display": "Account Freeze",
+            "code": "ACCOUNT_FREEZE"
+        },
+        {
+            "label": "fd_open",
+            "display": "Fixed Deposit Open",
+            "code": "FD_OPEN"
+        },
+        {
+            "label": "fd_close",
+            "display": "Fixed Deposit Close",
+            "code": "FD_CLOSE"
+        },
+        {
+            "label": "complaint",
+            "display": "Complaint",
+            "code": "COMPLAINT_REGISTER"
+        },
+        {
+            "label": "passbook_print",
+            "display": "Passbook Print",
+            "code": "PASSBOOK_PRINT"
+        },
+        {
+            "label": "other",
+            "display": "Other",
+            "code": "GENERAL"
+        }
+    ],
+    "training_samples": [
+        {
+            "text": "I lost my card",
+            "label": "lost_card"
+        },
+        {
+            "text": "my card is stolen someone took my credit card",
+            "label": "lost_card"
+        },
+        {
+            "text": "card kho gaya hai mera",
+            "label": "lost_card"
+        },
+        {
+            "text": "माझे कार्ड हरवले",
+            "label": "lost_card"
+        },
+        {
+            "text": "I want a new card issued",
+            "label": "card_reissue"
+        },
+        {
+            "text": "please reissue my debit card",
+            "label": "card_reissue"
+        },
+        {
+            "text": "what is my balance",
+            "label": "balance_enquiry"
+        },
+        {
+            "text": "kitna paisa hai mere account mein",
+            "label": "balance_enquiry"
+        },
+        {
+            "text": "शिल्लक किती आहे",
+            "label": "balance_enquiry"
+        },
+        {
+            "text": "I want to apply for a home loan",
+            "label": "loan_query"
+        },
+        {
+            "text": "loan chahiye mujhe ghar ke liye",
+            "label": "loan_query"
+        },
+        {
+            "text": "मला गृहकर्ज हवे आहे",
+            "label": "loan_query"
+        },
+        {
+            "text": "I need to update my KYC documents",
+            "label": "kyc_update"
+        },
+        {
+            "text": "aadhaar update karna hai",
+            "label": "kyc_update"
+        },
+        {
+            "text": "I want to open a new savings account",
+            "label": "account_opening"
+        },
+        {
+            "text": "naya account kholna hai",
+            "label": "account_opening"
+        },
+        {
+            "text": "please freeze my account immediately",
+            "label": "account_freeze"
+        },
+        {
+            "text": "I want to open an FD for 5 lakhs",
+            "label": "fd_open"
+        },
+        {
+            "text": "fixed deposit karni hai",
+            "label": "fd_open"
+        },
+        {
+            "text": "I want to break my FD",
+            "label": "fd_close"
+        },
+        {
+            "text": "FD todna hai",
+            "label": "fd_close"
+        },
+        {
+            "text": "I want to file a complaint",
+            "label": "complaint"
+        },
+        {
+            "text": "शिकायत दर्ज करनी है",
+            "label": "complaint"
+        },
+        {
+            "text": "please print my passbook",
+            "label": "passbook_print"
+        },
+        {
+            "text": "passbook update karni hai",
+            "label": "passbook_print"
+        },
+        {
+            "text": "I have a general question",
+            "label": "other"
+        },
+        {
+            "text": "kuch puchna tha",
+            "label": "other"
+        }
+    ]
+}
