@@ -1,5 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useSentimentStore } from '@/store/sentimentStore'
+import { useSessionStore } from '@/store/sessionStore'
+import toast from 'react-hot-toast'
 
 /**
  * DeescalationModal — appears when stress level exceeds threshold.
@@ -7,6 +9,7 @@ import { useSentimentStore } from '@/store/sentimentStore'
  */
 export default function DeescalationModal({ onDismiss }) {
   const { stressLevel, emotion, tips } = useSentimentStore()
+  const addAction = useSessionStore(s => s.addAction)
 
   const shouldShow = stressLevel > 0.6 || emotion === 'distressed'
 
@@ -28,6 +31,15 @@ export default function DeescalationModal({ onDismiss }) {
     { icon: '👤', label: 'Call Manager',       code: 'CALL_MANAGER' },
     { icon: '📝', label: 'Log Complaint',      code: 'LOG_COMPLAINT' },
   ]
+
+  const handleQuickAction = (action) => {
+    addAction({
+      type: action.code,
+      detail: action.label,
+      status: 'initiated',
+    })
+    toast.success(`${action.icon} ${action.label} — action logged`, { duration: 3000 })
+  }
 
   return (
     <AnimatePresence>
@@ -88,6 +100,7 @@ export default function DeescalationModal({ onDismiss }) {
           {QUICK_ACTIONS.map((action, i) => (
             <button
               key={i}
+              onClick={() => handleQuickAction(action)}
               className="flex items-center gap-1.5 px-2.5 py-2 bg-surface2/80 border border-border rounded-lg text-[10px] text-muted hover:border-gold/40 hover:text-gold transition-all"
             >
               <span>{action.icon}</span>

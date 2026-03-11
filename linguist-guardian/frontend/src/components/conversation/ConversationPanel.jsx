@@ -1,9 +1,12 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState, useCallback } from 'react'
 import { useSessionStore }  from '@/store/sessionStore'
 import { useWebSocket }     from '@/hooks/useWebSocket'
 import { useAudioCapture }  from '@/hooks/useAudioCapture'
+import { extractIntent }    from '@/services/gpt4oService'
+import { checkCompliance }  from '@/services/gpt4oService'
 import MessageBubble        from './MessageBubble'
 import InputBar             from './InputBar'
+import toast                from 'react-hot-toast'
 
 // Demo messages to show on load
 const DEMO_MESSAGES = [
@@ -30,12 +33,13 @@ const DEMO_MESSAGES = [
 
 export default function ConversationPanel() {
   const bottomRef  = useRef(null)
+  const [language, setLanguage] = useState('mr')
   const { sessionId, messages, addMessage } = useSessionStore()
 
   const { sendAudioChunk } = useWebSocket(sessionId)
   const { isRecording, startRecording, stopRecording } = useAudioCapture({
     onChunk: sendAudioChunk,
-    language: 'mr',
+    language,
   })
 
   // Seed demo messages
@@ -49,6 +53,77 @@ export default function ConversationPanel() {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
+
+  // --- Handle text submit from InputBar ---
+  const handleSendText = useCallback(async (text, lang) => {
+    // 1. Add staff message to conversation
+    addMessage({
+      speaker: 'staff',
+      channel: 'B',
+      language: lang || 'en',
+      text,
+      translation: '',
+    })
+
+    // 2. Run compliance check silently in background
+    checkCompliance(text, sessionId).then(compliance => {
+      if (compliance && !compliance.compliant) {
+        toast.error(`⚠ Compliance: ${compliance.warning_message || 'Potential RBI violation detected'}`, {
+          duration: 6000,
+        })
+        addMessage({
+          speaker: 'ai',
+          channel: null,
+          language: 'en',
+          text: `⚠ COMPLIANCE ALERT: ${compliance.warning_message || 'Review RBI guidelines'}\n\nViolations: ${(compliance.violations || []).join(', ')}`,
+        })
+      }
+    }).catch(() => {})
+
+    // 3. Extract intent from staff message for AI advisory
+    try {
+      const intent = await extractIntent(text, lang || 'en', {}, sessionId)
+      if (intent && intent.staff_advisory) {
+        const advisoryLines = [
+          intent.urgency ? `${intent.urgency === 'critical' ? '🔴' : intent.urgency === 'high' ? '🟡' : '🟢'} ${intent.urgency.toUpperCase()}: ${intent.staff_advisory}` : intent.staff_advisory,
+        ]
+
+        if (intent.suggested_actions && intent.suggested_actions.length > 0) {
+          advisoryLines.push('')
+          intent.suggested_actions.forEach((action, i) => {
+            advisoryLines.push(`${i + 1}. ${action.replace(/_/g, ' ').replace(/^./, c => c.toUpperCase())}`)
+          })
+        }
+
+        addMessage({
+          speaker: 'ai',
+          channel: null,
+          language: 'en',
+          text: advisoryLines.join('\n'),
+          intent,
+        })
+      }
+    } catch (err) {
+      // Intent extraction failed silently — don't block the conversation
+      console.warn('Intent extraction failed:', err.message)
+    }
+  }, [addMessage, sessionId])
+
+  // --- Handle doc scan button ---
+  const handleDocScan = useCallback(() => {
+    // Trigger click on the document upload input in the sidebar
+    const fileInput = document.querySelector('#doc-ocr-file-input')
+    if (fileInput) {
+      fileInput.click()
+    } else {
+      toast('📄 Use the Document Sight panel on the right to upload documents', { icon: '👉' })
+    }
+  }, [])
+
+  // --- Handle language change ---
+  const handleLanguageChange = useCallback((lang) => {
+    setLanguage(lang)
+  }, [])
 
   const allMessages = messages.length > 0 ? messages : DEMO_MESSAGES
 
@@ -65,6 +140,9 @@ export default function ConversationPanel() {
         isRecording={isRecording}
         onStartRecord={() => startRecording('A')}
         onStopRecord={stopRecording}
+        onSendText={handleSendText}
+        onDocScan={handleDocScan}
+        onLanguageChange={handleLanguageChange}
       />
     </>
   )

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useSessionStore } from '@/store/sessionStore'
 import { motion, AnimatePresence } from 'framer-motion'
+import toast from 'react-hot-toast'
 
 export default function AlertBar() {
   const [visible, setVisible] = useState(true)
@@ -10,7 +11,13 @@ export default function AlertBar() {
 
   const handleBlock = () => {
     addAction({ type: 'CARD_BLOCK', detail: 'Card #4829 blocked', status: 'done' })
+    toast.success('✅ Card #4829 has been blocked successfully', { duration: 4000 })
     setVisible(false)
+  }
+
+  const handleReIssue = () => {
+    addAction({ type: 'CARD_REISSUE', detail: 'Re-issue initiated for Card #4829', status: 'initiated' })
+    toast.success('📝 Card re-issue process initiated. Estimated delivery: 3 business days.', { duration: 5000 })
   }
 
   return (
@@ -41,7 +48,10 @@ export default function AlertBar() {
           >
             Block Card Now
           </button>
-          <button className="px-3 py-1.5 bg-surface2 border border-border text-xs rounded-lg hover:border-accent transition-colors">
+          <button
+            onClick={handleReIssue}
+            className="px-3 py-1.5 bg-surface2 border border-border text-xs rounded-lg hover:border-accent hover:text-accent transition-colors"
+          >
             Start Re-Issue
           </button>
           <button

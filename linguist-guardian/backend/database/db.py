@@ -13,12 +13,12 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-# Convert postgres:// to postgresql+asyncpg:// for async
-db_url = settings.DATABASE_URL.replace(
-    "postgresql://", "postgresql+asyncpg://"
-).replace(
-    "sqlite:///", "sqlite+aiosqlite:///"
-)
+# Convert sync URLs to async variants if needed
+db_url = settings.DATABASE_URL
+if "postgresql://" in db_url and "asyncpg" not in db_url:
+    db_url = db_url.replace("postgresql://", "postgresql+asyncpg://")
+if "sqlite:///" in db_url and "aiosqlite" not in db_url:
+    db_url = db_url.replace("sqlite:///", "sqlite+aiosqlite:///")
 
 engine = create_async_engine(db_url, echo=False)
 AsyncSessionLocal = async_sessionmaker(engine, expire_on_commit=False)

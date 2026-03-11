@@ -40,7 +40,7 @@ export default function DocumentOCR() {
       {/* Upload button */}
       <label className="flex items-center justify-center gap-2 w-full py-2.5 mb-3 border border-dashed border-border rounded-xl text-xs text-muted hover:border-accent2 hover:text-accent2 transition-colors cursor-pointer">
         📷 Capture / Upload Document
-        <input type="file" accept="image/*" className="hidden" onChange={handleFile} />
+        <input id="doc-ocr-file-input" type="file" accept="image/*" className="hidden" onChange={handleFile} />
       </label>
 
       {isLoading && (
