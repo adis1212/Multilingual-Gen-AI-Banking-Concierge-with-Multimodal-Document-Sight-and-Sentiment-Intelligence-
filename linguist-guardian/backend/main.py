@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
-from api.routes import transcription, intent, tts, ocr, sentiment, session
+from api.routes import transcription, intent, tts, ocr, sentiment, session, orchestrate
 from ws_handlers.audio_stream import router as ws_router
 from database.db import create_tables
 
@@ -43,6 +43,7 @@ app.include_router(tts.router,           prefix="/api/tts",        tags=["TTS"])
 app.include_router(ocr.router,           prefix="/api/ocr",        tags=["OCR"])
 app.include_router(sentiment.router,     prefix="/api/sentiment",  tags=["Sentiment"])
 app.include_router(session.router,       prefix="/api/session",    tags=["Session"])
+app.include_router(orchestrate.router,   prefix="/api/orchestrate", tags=["Orchestrator"])
 
 # WebSocket
 app.include_router(ws_router, prefix="/ws", tags=["WebSocket"])

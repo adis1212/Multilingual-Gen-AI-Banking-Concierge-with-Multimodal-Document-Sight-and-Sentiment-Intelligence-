@@ -1,0 +1,4 @@
+# file: D:\project\Multilingual Gen-AI Banking Concierge with Multimodal Document Sight & Sentiment Intelligence\linguist-guardian\backend\core\gpt4o_client.py
+# hypothesis_version: 6.151.9
+
+[0.1, 0.2, 400, 800, 1000, 1500, 'OPENAI_API_KEY', 'compliance_check', 'content', 'document_analysis', 'gpt-4o', 'image_url', 'intent_extraction', 'json_object', 'prompts', 'role', 'session_summary', 'system', 'text', 'type', 'url', 'user']

@@ -1,0 +1,4 @@
+# file: D:\project\Multilingual Gen-AI Banking Concierge with Multimodal Document Sight & Sentiment Intelligence\linguist-guardian\backend\core\orchestrator.py
+# hypothesis_version: 6.151.9
+
+[0.1, 0.3, 0.6, 400, 'Prior Context: []', 'agent', 'content', 'distressed', 'emergency', 'emotion', 'fraud', 'frustrated', 'gpt-4o', 'high', 'intent', 'json_object', 'low', 'medium', 'orchestrator_routing', 'recommended_action', 'role', 'stolen', 'stress_level', 'system', 'type', 'unclear', 'urgency', 'urgent', 'user']

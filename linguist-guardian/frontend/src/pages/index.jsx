@@ -7,8 +7,9 @@ import ConversationPanel    from '@/components/conversation/ConversationPanel'
 import CustomerProfile      from '@/components/sidebar/CustomerProfile'
 import SentimentMonitor     from '@/components/sidebar/SentimentMonitor'
 import DocumentOCR          from '@/components/sidebar/DocumentOCR'
-import TokenQueue           from '@/components/TokenQueue'
-import DualChannelIndicator from '@/components/DualChannelIndicator'
+import TokenQueue              from '@/components/TokenQueue'
+import DualChannelIndicator    from '@/components/DualChannelIndicator'
+import RoutingDecisionPanel    from '@/components/routing/RoutingDecisionPanel'
 
 export default function Dashboard() {
   const loadCustomer = useCustomerStore(s => s.loadCustomer)
@@ -37,6 +38,7 @@ export default function Dashboard() {
         <div className="w-[360px] flex flex-col overflow-hidden">
           <CustomerProfile />
           <SentimentMonitor />
+          <RoutingDecisionPanel />
           <DocumentOCR />
         </div>
       </div>
