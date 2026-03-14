@@ -17,6 +17,7 @@ A real-time AI concierge system for Indian bank branches. It listens to customer
 | **Text-to-Speech** | ElevenLabs + Sarvam | Emotion-adaptive voice responses in customer's language |
 | **Compliance Whisper** | GPT-4o + RAG | Silent RBI compliance monitoring of staff utterances |
 | **RAG Pipeline** | ChromaDB + SentenceTransformer | Retrieves relevant RBI guidelines during conversations |
+| **Banking Assistant** | GPT-4o + Web Speech API | Interactive voice-guided counter routing for customers |
 
 ## 🌐 Languages Supported
 
@@ -106,9 +107,12 @@ Visit **http://localhost:3000** in your browser.
 | `POST` | `/api/tts/synthesize` | Text-to-speech |
 | `POST` | `/api/ocr/analyze` | Document analysis (GPT-4o Vision) |
 | `POST` | `/api/sentiment/analyze` | Audio sentiment analysis |
+| `POST` | `/api/banking-assistant/help` | Customer query counter routing |
+| `GET` | `/api/banking-assistant/counter-info` | Counter information |
+| `GET` | `/api/banking-assistant/intents` | Available banking intents |
 | `WS`   | `/ws/audio/{session_id}` | Real-time dual-channel audio |
 
-Full API documentation: [docs/api_reference.md](docs/api_reference.md)
+Full API documentation: [docs/api_reference.md](docs/api_reference.md) | [Banking Assistant API](docs/banking_assistant_api.md)
 
 ---
 

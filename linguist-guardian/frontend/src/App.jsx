@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import Dashboard from '@/pages/index'
 import SessionPage from '@/pages/session/[id]'
 import ReportsPage from '@/pages/reports'
+import BankingAssistantPage from '@/pages/banking_assistant'
 
 export default function App() {
   return (
@@ -9,6 +10,7 @@ export default function App() {
       <Route path="/"              element={<Dashboard />} />
       <Route path="/session/:id"   element={<SessionPage />} />
       <Route path="/reports"       element={<ReportsPage />} />
+      <Route path="/banking-assistant" element={<BankingAssistantPage />} />
       <Route path="*"              element={<Navigate to="/" replace />} />
     </Routes>
   )
