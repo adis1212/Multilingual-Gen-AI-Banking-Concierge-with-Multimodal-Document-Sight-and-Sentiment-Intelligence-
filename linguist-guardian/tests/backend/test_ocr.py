@@ -8,45 +8,23 @@ from unittest.mock import AsyncMock, patch, MagicMock
 
 
 MOCK_AADHAAR_RESULT = {
-    "doc_type": "aadhaar",
-    "extracted_fields": {
-        "name": "Priya Sharma",
-        "dob": "12/03/1990",
-        "address": "Flat 302, Baner Road, Pune 411045",
-        "id_number": "XXXX XXXX 4829",
-        "issue_date": "",
-        "expiry_date": "",
-    },
-    "cross_check_results": [
-        {"field": "name", "status": "match", "detail": ""},
-        {"field": "dob", "status": "match", "detail": ""},
-        {"field": "address", "status": "mismatch", "detail": "Address from 2018 record"},
-    ],
-    "mismatches": ["Address does not match current record"],
-    "ocr_confidence": 0.97,
-    "is_expired": False,
-    "staff_action": "Request utility bill (electricity/gas/water) not older than 3 months for address verification.",
-    "verification_status": "partial",
-    "risk_flags": [],
+    "document_type": "Aadhaar Card",
+    "name": "Priya Sharma",
+    "date_of_birth": "12/03/1990",
+    "document_number": "XXXX XXXX 4829",
+    "address": "Flat 302, Baner Road, Pune 411045",
+    "verification_status": "mismatch",
+    "staff_action": "Request utility bill (electricity/gas/water) not older than 3 months for address verification."
 }
 
 MOCK_PAN_RESULT = {
-    "doc_type": "pan",
-    "extracted_fields": {
-        "name": "Priya Sharma",
-        "dob": "12/03/1990",
-        "id_number": "BXPPS1234K",
-    },
-    "cross_check_results": [
-        {"field": "name", "status": "match", "detail": ""},
-        {"field": "dob", "status": "match", "detail": ""},
-    ],
-    "mismatches": [],
-    "ocr_confidence": 0.99,
-    "is_expired": False,
-    "staff_action": "PAN verified successfully. Proceed with KYC update.",
-    "verification_status": "verified",
-    "risk_flags": [],
+    "document_type": "PAN Card",
+    "name": "Priya Sharma",
+    "date_of_birth": "12/03/1990",
+    "document_number": "BXPPS1234K",
+    "address": "",
+    "verification_status": "valid",
+    "staff_action": "PAN verified successfully. Proceed with KYC update."
 }
 
 
@@ -62,11 +40,13 @@ class TestDocumentAnalysis:
 
     @pytest.mark.asyncio
     async def test_aadhaar_partial_match(self):
-        """Aadhaar with address mismatch should return 'partial' status."""
-        with patch("core.gpt4o_client.client") as mock_client:
+        """Aadhaar with address mismatch should return 'mismatch' status."""
+        with patch("core.gpt4o_client.get_client") as mock_get_client:
+            mock_client = MagicMock()
             mock_client.chat.completions.create = AsyncMock(
                 return_value=_mock_chat_response(MOCK_AADHAAR_RESULT)
             )
+            mock_get_client.return_value = mock_client
             from core.gpt4o_client import analyze_document
             result = await analyze_document(
                 image_base64="fake_base64_data",
@@ -74,18 +54,19 @@ class TestDocumentAnalysis:
                 customer_record={"name": "Priya Sharma", "dob": "12/03/1990"},
             )
 
-            assert result["doc_type"] == "aadhaar"
-            assert result["verification_status"] == "partial"
-            assert result["ocr_confidence"] >= 0.95
-            assert len(result["mismatches"]) > 0
+            assert result["document_type"] == "Aadhaar Card"
+            assert result["verification_status"] == "mismatch"
+            assert len(result["staff_action"]) > 0
 
     @pytest.mark.asyncio
     async def test_pan_full_match(self):
-        """PAN with all fields matching should return 'verified' status."""
-        with patch("core.gpt4o_client.client") as mock_client:
+        """PAN with all fields matching should return 'valid' status."""
+        with patch("core.gpt4o_client.get_client") as mock_get_client:
+            mock_client = MagicMock()
             mock_client.chat.completions.create = AsyncMock(
                 return_value=_mock_chat_response(MOCK_PAN_RESULT)
             )
+            mock_get_client.return_value = mock_client
             from core.gpt4o_client import analyze_document
             result = await analyze_document(
                 image_base64="fake_base64_data",
@@ -93,16 +74,17 @@ class TestDocumentAnalysis:
                 customer_record={"name": "Priya Sharma"},
             )
 
-            assert result["verification_status"] == "verified"
-            assert len(result["mismatches"]) == 0
+            assert result["verification_status"] == "valid"
 
     @pytest.mark.asyncio
     async def test_returns_staff_action(self):
         """Result should always include a staff_action instruction."""
-        with patch("core.gpt4o_client.client") as mock_client:
+        with patch("core.gpt4o_client.get_client") as mock_get_client:
+            mock_client = MagicMock()
             mock_client.chat.completions.create = AsyncMock(
                 return_value=_mock_chat_response(MOCK_AADHAAR_RESULT)
             )
+            mock_get_client.return_value = mock_client
             from core.gpt4o_client import analyze_document
             result = await analyze_document("fake", "aadhaar", {})
             assert "staff_action" in result
