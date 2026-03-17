@@ -25,6 +25,18 @@ Marathi · Hindi · Tamil · Telugu · Bengali · Gujarati · Kannada · Malayal
 
 ---
 
+## 🤖 Master Orchestration & AI Agents
+
+The system operates via a **Master Orchestrator** which analyzes conversations in real-time, determines customer intent, evaluates situational urgency, and seamlessly routes requests to five specialized AI agents:
+
+1. **Customer Service Agent**: Handles general inquiries (account balance, debit cards, loans, internet banking) with clear, voice-friendly responses.
+2. **Document Verification Agent**: Employs multimodal OCR (GPT-4o Vision) to verify identity documents like Aadhaar and PAN against core records, detecting mismatches instantly.
+3. **Queue Management Agent**: Manages branch flow by assigning tokens and dynamically routing customers to the correct service counter based on their needs.
+4. **Compliance Monitor Agent**: Silently analyzes staff communication via an RBI-guideline RAG pipeline to immediately flag regulatory violations (e.g., mis-selling or missing disclosures).
+5. **Voice Response Agent**: Converts generated responses into natural, calm, and linguistically accurate Text-to-Speech audio tailored to the customer's native language.
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites
